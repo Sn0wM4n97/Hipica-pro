@@ -9,13 +9,7 @@ import { Zap, Ticket, Calendar, Trophy, History, ShieldQuestion, PlayCircle,Hear
 
 
 
-
-
-const NavItem = ({ title, icon, subItems, image, description }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  const getPath = (label) => {
+const getPath = (label) => {
     const paths = {
       "SALUD": "/salud",
       "NOTICIAS": "/noticias",
@@ -30,6 +24,12 @@ const NavItem = ({ title, icon, subItems, image, description }) => {
     };
     return paths[label] || "/";
   };
+
+const NavItem = ({ title, icon, subItems, image, description }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  
 
   const hasSubItems = subItems && subItems.length > 0;
 
@@ -182,183 +182,181 @@ const TopBar = () => {
   }
 
   return (
-    <>
-      <motion.nav
-        initial={false}
-        animate={{
-          y: isFloating ? 15 : 0,
-          width: isFloating ? '95%' : '100vw',
-          left: isFloating ? '2.5%' : 0,
-          borderRadius: isFloating ? '20px' : '0px',
-          backgroundColor: isDark
-            ? isFloating ? 'rgba(30, 41, 59, 0.85)' : '#1e293b'
-            : isFloating ? 'rgba(255, 255, 255, 0.85)' : '#ffffff',
-          boxShadow: isFloating ? '0 10px 30px rgba(0,0,0,0.2)' : 'none',
-          backdropFilter: isFloating ? 'blur(12px)' : 'none',
-          border: isFloating ? '1px solid rgba(255,255,255,0.1)' : 'none',
-        }}
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-        style={{ position: 'fixed', top: 0, zIndex: 1000 }}
-      >
-        <div style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: '70px' }}>
+  <>
+    <motion.nav
+      initial={false}
+      animate={{
+        y: isFloating ? 15 : 0,
+        width: isFloating ? '95%' : '100vw',
+        left: isFloating ? '2.5%' : 0,
+        borderRadius: isFloating ? '20px' : '0px',
+        backgroundColor: isDark
+          ? isFloating ? 'rgba(30, 41, 59, 0.85)' : '#1e293b'
+          : isFloating ? 'rgba(255, 255, 255, 0.85)' : '#ffffff',
+        boxShadow: isFloating ? '0 10px 30px rgba(0,0,0,0.2)' : 'none',
+        backdropFilter: isFloating ? 'blur(12px)' : 'none',
+        border: isFloating ? '1px solid rgba(255,255,255,0.1)' : 'none',
+      }}
+      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      style={{ position: 'fixed', top: 0, zIndex: 1000 }}
+    >
+      <div style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: '70px' }}>
+        
+        {/* IZQUIERDA: LOGO + DESKTOP MENU */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <div style={{ fontWeight: '900', fontSize: '1.2rem', color: '#eab308', letterSpacing: '-1px' }}>HÍPICA PRO</div>
+          </Link>
           
-          {/* IZQUIERDA: LOGO + DESKTOP MENU */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <div style={{ fontWeight: '900', fontSize: '1.2rem', color: '#eab308', letterSpacing: '-1px' }}>HÍPICA PRO</div>
-            </Link>
-            
-            {/* Solo visible en pantallas grandes */}
-            <div className="nav-desktop-links" style={{ display: 'flex', gap: '5px' }}>
-              {menuData.map((menu, i) => (
-                <NavItem key={i} {...menu} />
-              ))}
+          <div className="nav-desktop-links" style={{ display: 'flex', gap: '5px' }}>
+            {menuData.map((menu, i) => (
+              <NavItem key={i} {...menu} />
+            ))}
+          </div>
+        </div>
+
+        {/* CENTRO: TICKER */}
+        <div className="nav-ticker" style={{ flex: 1, margin: '0 30px', maxWidth: '350px' }}>
+          <RaceTicker />
+        </div>
+
+        {/* DERECHA: ACCIONES */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          
+          <div className="nav-balance" style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', padding: '5px 12px', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '0.5rem', opacity: 0.6, fontWeight: 'bold' }}>SALDO</div>
+              <div style={{ color: '#eab308', fontWeight: '800', fontSize: '0.85rem' }}>${balance.toLocaleString()}</div>
             </div>
+            <button onClick={handleFakeDeposit} style={{ background: '#eab308', border: 'none', borderRadius: '6px', padding: '4px 8px', fontSize: '0.6rem', fontWeight: 'bold', cursor: 'pointer' }}>+</button>
           </div>
 
-          {/* CENTRO: TICKER (Oculto en móvil) */}
-          <div className="nav-ticker" style={{ flex: 1, margin: '0 30px', maxWidth: '350px' }}>
-            <RaceTicker />
-          </div>
+          <Link to="/perfil" style={{ display: 'flex', alignItems: 'center', color: '#eab308' }}>
+            <User size={20} />
+          </Link>
 
-          {/* DERECHA: ACCIONES */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            
-            {/* Balance Widget (Oculto en móvil muy pequeño) */}
-            <div className="nav-balance" style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', padding: '5px 12px', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.5rem', opacity: 0.6, fontWeight: 'bold' }}>SALDO</div>
-                <div style={{ color: '#eab308', fontWeight: '800', fontSize: '0.85rem' }}>${balance.toLocaleString()}</div>
-              </div>
-              <button onClick={handleFakeDeposit} style={{ background: '#eab308', border: 'none', borderRadius: '6px', padding: '4px 8px', fontSize: '0.6rem', fontWeight: 'bold', cursor: 'pointer' }}>+</button>
+          <button 
+            className="nav-mobile-trigger"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{ background: 'none', border: 'none', color: 'var(--text-main)', cursor: 'pointer' }}
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+      </div>
+    </motion.nav>
+
+    {/* MENÚ MÓVIL CORREGIDO */}
+    <AnimatePresence>
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '100%' }}
+          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: '#0f172a',
+            zIndex: 9999,
+            padding: '30px 25px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {/* Cabecera del Menú */}
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            marginBottom: '40px',
+            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            paddingBottom: '20px'
+          }}>
+            <div style={{ fontWeight: '900', color: '#eab308', fontSize: '1.2rem', letterSpacing: '-1px' }}>
+              HÍPICA PRO
             </div>
-
-            {/* Tema y Perfil */}
-            
-
-            <Link to="/perfil" style={{ display: 'flex', alignItems: 'center', color: '#eab308' }}>
-              <User size={20} />
-            </Link>
-
-            {/* BOTÓN HAMBURGUESA (Móvil) */}
             <button 
-              className="nav-mobile-trigger"
-              onClick={() => setIsMobileMenuOpen(true)}
-              style={{ background: 'none', border: 'none', color: 'var(--text-main)', cursor: 'pointer' }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{ background: 'rgba(255,255,255,0.05)', border: 'none', borderRadius: '12px', padding: '10px', color: '#fff', cursor: 'pointer' }}
             >
-              <Menu size={24} />
+              <X size={24} />
             </button>
           </div>
-        </div>
-      </motion.nav>
 
-      {/* MENÚ MÓVIL (Full Screen Drawer) */}
-      {/* MENÚ MÓVIL CORREGIDO */}
-<AnimatePresence>
-  {isMobileMenuOpen && (
-    <motion.div
-      initial={{ x: '100%' }}
-      animate={{ x: 0 }}
-      exit={{ x: '100%' }}
-      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: '#0f172a', // Azul opaco sólido para que no se trasluzca el fondo
-        zIndex: 9999, // Máxima prioridad
-        padding: '30px 25px',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {/* Cabecera del Menú */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        marginBottom: '40px',
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        paddingBottom: '20px'
-      }}>
-        <div style={{ fontWeight: '900', color: '#eab308', fontSize: '1.2rem', letterSpacing: '-1px' }}>
-          HÍPICA PRO
-        </div>
-        <button 
-          onClick={() => setIsMobileMenuOpen(false)}
-          style={{ background: 'rgba(255,255,255,0.05)', border: 'none', borderRadius: '12px', padding: '10px', color: '#fff', cursor: 'pointer' }}
-        >
-          <X size={24} />
-        </button>
-      </div>
-
-      {/* Cuerpo del Menú (Scrollable) */}
-      <div style={{ overflowY: 'auto', flex: 1, paddingRight: '10px' }}>
-        {menuData.map((menu, i) => (
-          <div key={i} style={{ marginBottom: '35px' }}>
-            {/* Título de Categoría */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '12px', 
-              color: '#eab308', 
-              marginBottom: '20px', 
-              fontWeight: '900', 
-              fontSize: '0.8rem',
-              letterSpacing: '2px'
-            }}>
-              {menu.icon} {menu.title}
-            </div>
-
-            {/* Links de la Categoría */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', paddingLeft: '32px' }}>
-              {menu.subItems ? menu.subItems.map((sub, j) => (
+          {/* Cuerpo del Menú (Scrollable) */}
+          <div style={{ overflowY: 'auto', flex: 1, paddingRight: '10px' }}>
+            {menuData.map((menu, i) => (
+              <div key={i} style={{ marginBottom: '35px' }}>
+                {/* Título de Categoría - Ahora usa getPath para ser funcional si se clickea el padre */}
                 <Link 
-                  key={j} 
-                  to={sub.label} 
-                  onClick={() => setIsMobileMenuOpen(false)} 
+                  to={getPath(menu.title)}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   style={{ 
-                    color: '#f8fafc', 
-                    textDecoration: 'none', 
-                    fontSize: '1.1rem', 
-                    fontWeight: '500',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '12px', 
+                    color: '#eab308', 
+                    marginBottom: '20px', 
+                    fontWeight: '900', 
+                    fontSize: '0.8rem',
+                    letterSpacing: '2px',
+                    textDecoration: 'none'
                   }}
                 >
-                  {sub.label}
-                  <ChevronRight size={18} style={{ opacity: 0.2 }} />
+                  {menu.icon} {menu.title}
                 </Link>
-              )) : (
-                <Link 
-                  to={menu.title} 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem', fontWeight: '500' }}
-                >
-                  Ver sección
-                </Link>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Footer del Menú Móvil */}
-      <div style={{ 
-        marginTop: '20px', 
-        paddingTop: '20px', 
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '20px'
-      }}>
-        <Link to="/perfil" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#94a3b8', fontSize: '0.8rem', textDecoration: 'none' }}>MI PERFIL</Link>
-        <span style={{ color: 'rgba(255,255,255,0.1)' }}>|</span>
-        <div style={{ color: '#94a3b8', fontSize: '0.8rem' }}>SOPORTE 24/7</div>
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+                {/* Links de la Categoría */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', paddingLeft: '32px' }}>
+                  {menu.subItems ? menu.subItems.map((sub, j) => (
+                    <Link 
+                      key={j} 
+                      to={getPath(sub.label)} // CORRECCIÓN: Usamos getPath para traducir el label a la ruta
+                      onClick={() => setIsMobileMenuOpen(false)} 
+                      style={{ 
+                        color: '#f8fafc', 
+                        textDecoration: 'none', 
+                        fontSize: '1.1rem', 
+                        fontWeight: '500',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {sub.label}
+                      <ChevronRight size={18} style={{ opacity: 0.2 }} />
+                    </Link>
+                  )) : (
+                    <Link 
+                      to={getPath(menu.title)} // Para items sin subItems como SALUD o NOTICIAS
+                      onClick={() => setIsMobileMenuOpen(false)} 
+                      style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem', fontWeight: '500' }}
+                    >
+                      Ver sección
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer del Menú Móvil */}
+          <div style={{ 
+            marginTop: '20px', 
+            paddingTop: '20px', 
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '20px'
+          }}>
+            <Link to="/perfil" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#94a3b8', fontSize: '0.8rem', textDecoration: 'none' }}>MI PERFIL</Link>
+            <span style={{ color: 'rgba(255,255,255,0.1)' }}>|</span>
+            <div style={{ color: '#94a3b8', fontSize: '0.8rem' }}>SOPORTE 24/7</div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
 
 
       {/* ESTILOS CSS PARA RESPONSIVE */}
