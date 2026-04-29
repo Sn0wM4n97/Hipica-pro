@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import  {useState, useEffect} from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ShieldCheck, Activity, HeartHandshake, Microscope } from 'lucide-react';
+import { ShieldCheck, HeartHandshake, Microscope } from 'lucide-react';
 
 
 const HEALTH_INFO = [
@@ -61,6 +61,33 @@ const HealthDynamicSection = () => {
 
   return (
     <section style={{ padding: '100px 5%', backgroundColor: 'var(--bg)' }}>
+      
+      {/* 1. NUEVO HEADER CENTRADO ESTILO PREMIUM */}
+      <header style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <h2 style={{ 
+          fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+          fontWeight: '900', 
+          color: '#fff', 
+          margin: 0,
+          lineHeight: '1.1'
+        }}>
+          Bienestar e <span style={{ color: '#eab308' }}>Integridad</span>
+        </h2>
+        <p style={{ 
+          fontSize: '1.1rem', 
+          color: '#fff', 
+          opacity: 0.5, 
+          marginTop: '15px',
+          fontWeight: '400',
+          maxWidth: '600px',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}>
+          Garantizamos la salud de los atletas equinos con estándares internacionales de alta competencia.
+        </p>
+      </header>
+
+      {/* 2. TU GRID EXISTENTE (Ahora debajo del header) */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
         
         {/* LADO IZQUIERDO: IMAGEN FIJA CON ANIMACIÓN */}
@@ -68,9 +95,10 @@ const HealthDynamicSection = () => {
             position: 'relative', 
             height: '500px', 
             borderRadius: '40px', 
-            width: '100%', // Asegura el ancho total
+            width: '100%', 
             overflow: 'hidden', 
-            boxShadow: '0 40px 80px rgba(0,0,0,0.3)' }}>
+            boxShadow: '0 40px 80px rgba(0,0,0,0.4)' 
+        }}>
           <AnimatePresence mode="wait">
             <motion.img
               key={index}
@@ -82,7 +110,7 @@ const HealthDynamicSection = () => {
               style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
             />
           </AnimatePresence>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }} />
         </div>
 
         {/* LADO DERECHO: TEXTO DINÁMICO */}
@@ -96,23 +124,23 @@ const HealthDynamicSection = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', opacity: i === index ? 1 : 0.3, transition: '0.3s' }}>
                   <div style={{ color: item.color }}>{item.icon}</div>
-                  <h3 style={{ fontSize: '1.2rem', margin: 0, color: 'var(--text-main)' }}>{item.title}</h3>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0, color: 'var(--text-main)' }}>{item.title}</h3>
                 </div>
                 
-                {/* BARRA DE PROGRESO (Solo visible en el activo) */}
+                {/* BARRA DE PROGRESO */}
                 {i === index && (
-                  <div style={{ height: '2px', width: '100%', backgroundColor: 'rgba(255,255,255,0.1)', marginTop: '10px', overflow: 'hidden' }}>
+                  <div style={{ height: '3px', width: '100%', backgroundColor: 'rgba(255,255,255,0.05)', marginTop: '15px', overflow: 'hidden', borderRadius: '10px' }}>
                     <motion.div 
                       key={progressKey}
                       initial={{ width: '0%' }}
                       animate={{ width: '100%' }}
                       transition={{ duration: DURATION / 1000, ease: "linear" }}
-                      style={{ height: '100%', backgroundColor: item.color }}
+                      style={{ height: '100%', backgroundColor: item.color, boxShadow: `0 0 10px ${item.color}66` }}
                     />
                   </div>
                 )}
 
-                {/* DESCRIPCIÓN (Solo visible en el activo) */}
+                {/* DESCRIPCIÓN */}
                 <AnimatePresence>
                   {i === index && (
                     <motion.div
@@ -121,7 +149,7 @@ const HealthDynamicSection = () => {
                       exit={{ height: 0, opacity: 0 }}
                       style={{ overflow: 'hidden' }}
                     >
-                      <p style={{ paddingTop: '15px', fontSize: '1rem', lineHeight: '1.6', color: 'var(--text-main)' }}>
+                      <p style={{ paddingTop: '20px', fontSize: '1.05rem', lineHeight: '1.7', color: 'var(--text-main)' }}>
                         {item.description}
                       </p>
                     </motion.div>
@@ -131,7 +159,6 @@ const HealthDynamicSection = () => {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

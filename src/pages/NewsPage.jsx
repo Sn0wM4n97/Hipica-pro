@@ -1,29 +1,15 @@
-import React, { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Calendar, Newspaper, TrendingUp, Zap, Star, X, 
-  Clock, Share2, MessageSquare, ChevronRight, Search, Camera, ZoomIn, MapPin
+  TrendingUp, X, 
+  MessageSquare, Camera, ZoomIn, MapPin
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-// Variantes de animación para cascada
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
 
-const NewsPage = () => {
-  const [selectedArticle, setSelectedArticle] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('TODOS');
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const colors = {
+const colors = {
     bgMain: '#0f172a',
     bgCard: '#1e293b',
     accent: '#eab308',
@@ -62,6 +48,25 @@ const NewsPage = () => {
     location: "Santa Anita Park"
   }
 ];
+
+
+// Variantes de animación para cascada
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
+
+const NewsPage = () => {
+  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('TODOS');
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  
 
 
   const filteredArticles = articles.filter(art => activeFilter === 'TODOS' || art.category === activeFilter);

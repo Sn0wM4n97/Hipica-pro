@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, Wallet, Shield, Bell, LogOut, 
-  Trophy, TrendingUp, Star, Camera, Save, MapPin
+  Trophy, TrendingUp, Star, Camera, Save
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState('cuenta');
+
 
   const colors = {
     bgMain: '#0f172a',      // Azul profundo
@@ -32,6 +31,12 @@ const ProfilePage = () => {
     { id: 'notificaciones', label: 'Notificaciones', icon: <Bell size={20} /> },
     { id: 'logout', label: 'Cerrar Sesión', icon: <LogOut size={20} />, color: '#ef4444' },
   ];
+
+
+const ProfilePage = () => {
+  const [activeTab, setActiveTab] = useState('cuenta');
+
+
 
   return (
     <main style={{ backgroundColor: colors.bgMain, minHeight: '100vh', padding: '120px 5% 60px' }}>

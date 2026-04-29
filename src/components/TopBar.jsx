@@ -1,57 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'; // 1. Importante importar Link
 import { motion, AnimatePresence } from 'framer-motion'
 import { flushSync } from 'react-dom'
 import RaceTicker from './RaceTicker'
-import { 
-  Zap, 
-  Ticket, 
-  Newspaper, 
-  Calendar, 
-  Trophy, 
-  History, 
-  ShieldQuestion, 
-  PlayCircle,
-  HeartPlus,
-  Rss,
-  User,
-  Wallet,
-  Bell,
-  LogOut,
-  Moon,
-  Sun
-} from 'lucide-react'; 
-import { desc } from 'framer-motion/client';
-
-const actionButtonStyle = {
-  backgroundColor: '#eab308', // Dorado
-  color: '#000',
-  border: 'none',
-  padding: '10px 20px',
-  borderRadius: '12px',
-  fontWeight: 'bold',
-  fontSize: '0.85rem',
-  cursor: 'pointer',
-  transition: 'all 0.2s ease',
-  boxShadow: '0 4px 15px rgba(234, 179, 8, 0.3)',
-};
+import { Zap, Ticket, Calendar, Trophy, History, ShieldQuestion, PlayCircle,HeartPlus,Rss,User,Moon,Sun, ChevronRight, Menu, X, Wallet} from 'lucide-react'; 
 
 
-const handleFakeDeposit = () => {
-  // Animación de incremento
-  let start = balance;
-  const end = balance + 500;
-  const duration = 1000; // 1 segundo
-  const startTime = performance.now();
 
-  const animate = (currentTime) => {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    setBalance(start + (end - start) * progress);
-    if (progress < 1) requestAnimationFrame(animate);
-  };
-  requestAnimationFrame(animate);
-};
+
+
+
 
 const NavItem = ({ title, icon, subItems, image, description }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -161,18 +119,12 @@ const NavItem = ({ title, icon, subItems, image, description }) => {
 };
 
 
-
-
-
-
-
-
 // --- COMPONENTE PRINCIPAL ACTUALIZADO ---
 const TopBar = () => {
   const [isFloating, setIsFloating] = useState(false)
-  // 1. Iniciamos el estado desde localStorage para que no falle al recargar
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('theme') !== 'light'; // Por defecto oscuro
+    return localStorage.getItem('theme') !== 'light';
   });
   const [balance, setBalance] = useState(1250.00);
 
@@ -180,41 +132,33 @@ const TopBar = () => {
     setBalance(prev => prev + 500);
   };
 
-
-  // Datos para los menús
   const menuData = [
-  { 
-    title: 'CARRERAS', 
-    icon: <Zap size={18} />,
-    image: 'https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Imagen de caballos
-    description: 'Sigue la acción en vivo desde los mejores hipódromos del mundo.',
-    subItems: [
-    { label: "Calendario Hípico", icon: <Calendar size={18} /> },
-    { label: "Resultados en Vivo", icon: <Trophy size={18} /> },
-    { label: "Programación Diaria", icon: <History size={18} /> },
-    { label: "Hipódromos", icon: <Zap size={18} /> }
-  ]
-  },
-  { 
-    title: 'APUESTAS', 
-    icon: <Ticket size={18} />, 
-    image: 'https://images.unsplash.com/photo-1446669052213-5dcff53f1f3f?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    description: 'Gestiona tus apuestas, revisa tus boletos y accede a promociones exclusivas.',
-    subItems: [
-      { label: 'Mis Boletos', icon: <Ticket size={14} /> },
-      { label: 'Reglas', icon: <ShieldQuestion size={14} /> },
-      { label: 'En Vivo', icon: <PlayCircle size={14} /> }
-    ] 
-  },
-  { 
-    title: 'SALUD', 
-    icon: <HeartPlus size={18} />,
-  },
-  { 
-    title: 'NOTICIAS', 
-    icon: <Rss size={18} />,
-  },
-];
+    { 
+      title: 'CARRERAS', 
+      icon: <Zap size={18} />,
+      image: 'https://images.unsplash.com/flagged/photo-1569319388901-605a6d2d1299?q=80&w=871&auto=format&fit=crop',
+      description: 'Sigue la acción en vivo desde los mejores hipódromos del mundo.',
+      subItems: [
+        { label: "Calendario Hípico", icon: <Calendar size={18} /> },
+        { label: "Resultados en Vivo", icon: <Trophy size={18} /> },
+        { label: "Programación Diaria", icon: <History size={18} /> },
+        { label: "Hipódromos", icon: <Zap size={18} /> }
+      ]
+    },
+    { 
+      title: 'APUESTAS', 
+      icon: <Ticket size={18} />, 
+      image: 'https://images.unsplash.com/photo-1446669052213-5dcff53f1f3f?q=80&w=1473&auto=format&fit=crop',
+      description: 'Gestiona tus apuestas, revisa tus boletos y accede a promociones exclusivas.',
+      subItems: [
+        { label: 'Mis Boletos', icon: <Ticket size={14} /> },
+        { label: 'Reglas', icon: <ShieldQuestion size={14} /> },
+        { label: 'En Vivo', icon: <PlayCircle size={14} /> }
+      ] 
+    },
+    { title: 'SALUD', icon: <HeartPlus size={18} /> },
+    { title: 'NOTICIAS', icon: <Rss size={18} /> },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsFloating(window.scrollY > 50)
@@ -222,153 +166,215 @@ const TopBar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // 2. Efecto para aplicar el tema al documento
   useEffect(() => {
     const theme = isDark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [isDark]);
 
-
-  const toggleTheme = async (event) => {
+  const toggleTheme = (event) => {
     if (!document.startViewTransition) {
       setIsDark((prev) => !prev); return;
     }
-    const x = event.clientX; const y = event.clientY;
-    document.documentElement.style.setProperty('--x', `${x}px`);
-    document.documentElement.style.setProperty('--y', `${y}px`);
     document.startViewTransition(() => {
       flushSync(() => setIsDark((prev) => !prev));
     });
   }
 
   return (
-    <motion.nav
-      initial={false}
-      animate={{
-        y: isFloating ? 20 : 0,
-        width: isFloating ? '90%' : '100vw',
-        left: isFloating ? '50%' : 0,
-        x: isFloating ? '-50%' : '0%', // Mejor usar x en lugar de transform: translateX
-        borderRadius: isFloating ? '24px' : '0px',
-        backgroundColor: isDark
-          ? isFloating ? 'rgba(30, 41, 59, 0.8)' : '#1e293b'
-          : isFloating ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
-        boxShadow: isFloating ? '0 10px 25px -5px rgba(0,0,0,0.3)' : 'none',
-        backdropFilter: isFloating ? 'blur(12px)' : 'none',
-        border: isFloating ? '1px solid rgba(255,255,255,0.1)' : 'none',
-      }}
-      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      style={{ position: 'fixed', top: 0, left: 0, zIndex: 1000 }}
-    >
-      <div style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 2rem', height: '70px' }}>
-        
-        {/* LOGO E ITEMS IZQUIERDA */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-          {/* Envolvemos el texto con Link */}
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ 
-              fontWeight: '900', 
-              fontSize: '1.4rem', 
-              letterSpacing: '-1px', 
-              color: 'var(--text-main)', // Se adapta al modo oscuro/claro
-              cursor: 'pointer' 
-            }}>
-              HÍPICA PRO
-            </div>
-          </Link>
-          <div style={{ display: 'flex', gap: '15px', position: 'static' }}> {/* Agregamos position static */}
-  {menuData.map((menu, i) => (
-    <NavItem 
-      key={i} 
-      title={menu.title} 
-      icon={menu.icon} 
-      subItems={menu.subItems}
-      image={menu.image}       // <--- Agregado
-      description={menu.description} // <--- Agregado
-    />
-  ))}
-</div>
-        </div>
-
-        {/* CENTRO: TICKER */}
-        <div style={{ flex: 1, margin: '0 40px', maxWidth: '400px' }}>
-          <RaceTicker />
-        </div>
-
-        {/* DERECHA: ACCIONES */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-  
-  {/* WIDGET DE BALANCE */}
-  <div style={{ 
-    display: 'flex', 
-    alignItems: 'center', 
-    gap: '12px', 
-    backgroundColor: 'rgba(255,255,255,0.05)', 
-    padding: '6px 16px', 
-    borderRadius: '12px',
-    border: '1px solid var(--border-color)'
-  }}>
-    <div style={{ textAlign: 'right' }}>
-      <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'bold' }}>MI SALDO</div>
-      <div style={{ color: '#eab308', fontWeight: '900', fontSize: '0.9rem' }}>
-        ${balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-      </div>
-    </div>
-    <button 
-      onClick={handleFakeDeposit}
-      style={{
-        backgroundColor: '#eab308',
-        border: 'none',
-        borderRadius: '8px',
-        padding: '5px 12px',
-        color: '#000',
-        fontWeight: 'bold',
-        fontSize: '0.7rem',
-        cursor: 'pointer'
-      }}
-    >
-      DEPOSITAR
-    </button>
-  </div>
-
-  {/* BOTÓN DE PERFIL (ACCESO DIRECTO) */}
-  {/* Icono Perfil */}
-          <Link to="/perfil">
-             <div style={{ /* estilo de tu circulo de perfil */ }}>
-                <User size={20} color="#eab308" />
-             </div>
-          </Link>
-
-  {/* BOTÓN MODO OSCURO (Tu toggle actual) */}
-   {/* BOTÓN MODO OSCURO CORREGIDO */}
-          <motion.button 
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleTheme} 
-            style={{ 
-              background: 'rgba(255,255,255,0.05)', 
-              border: '1px solid var(--border-color)', 
-              color: 'var(--text-main)', 
-              cursor: 'pointer',
-              width: '40px',
-              height: '40px',
-              borderRadius: '12px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            {/* Si isDark es true (modo azul), muestra el Sol para cambiar a Claro */}
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </motion.button>
-
+    <>
+      <motion.nav
+        initial={false}
+        animate={{
+          y: isFloating ? 15 : 0,
+          width: isFloating ? '95%' : '100vw',
+          left: isFloating ? '2.5%' : 0,
+          borderRadius: isFloating ? '20px' : '0px',
+          backgroundColor: isDark
+            ? isFloating ? 'rgba(30, 41, 59, 0.85)' : '#1e293b'
+            : isFloating ? 'rgba(255, 255, 255, 0.85)' : '#ffffff',
+          boxShadow: isFloating ? '0 10px 30px rgba(0,0,0,0.2)' : 'none',
+          backdropFilter: isFloating ? 'blur(12px)' : 'none',
+          border: isFloating ? '1px solid rgba(255,255,255,0.1)' : 'none',
+        }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        style={{ position: 'fixed', top: 0, zIndex: 1000 }}
+      >
+        <div style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: '70px' }}>
           
+          {/* IZQUIERDA: LOGO + DESKTOP MENU */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <div style={{ fontWeight: '900', fontSize: '1.2rem', color: '#eab308', letterSpacing: '-1px' }}>HÍPICA PRO</div>
+            </Link>
+            
+            {/* Solo visible en pantallas grandes */}
+            <div className="nav-desktop-links" style={{ display: 'flex', gap: '5px' }}>
+              {menuData.map((menu, i) => (
+                <NavItem key={i} {...menu} />
+              ))}
+            </div>
+          </div>
 
+          {/* CENTRO: TICKER (Oculto en móvil) */}
+          <div className="nav-ticker" style={{ flex: 1, margin: '0 30px', maxWidth: '350px' }}>
+            <RaceTicker />
+          </div>
 
-</div>
+          {/* DERECHA: ACCIONES */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            
+            {/* Balance Widget (Oculto en móvil muy pequeño) */}
+            <div className="nav-balance" style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', padding: '5px 12px', borderRadius: '10px', border: '1px solid var(--border-color)' }}>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '0.5rem', opacity: 0.6, fontWeight: 'bold' }}>SALDO</div>
+                <div style={{ color: '#eab308', fontWeight: '800', fontSize: '0.85rem' }}>${balance.toLocaleString()}</div>
+              </div>
+              <button onClick={handleFakeDeposit} style={{ background: '#eab308', border: 'none', borderRadius: '6px', padding: '4px 8px', fontSize: '0.6rem', fontWeight: 'bold', cursor: 'pointer' }}>+</button>
+            </div>
+
+            {/* Tema y Perfil */}
+            
+
+            <Link to="/perfil" style={{ display: 'flex', alignItems: 'center', color: '#eab308' }}>
+              <User size={20} />
+            </Link>
+
+            {/* BOTÓN HAMBURGUESA (Móvil) */}
+            <button 
+              className="nav-mobile-trigger"
+              onClick={() => setIsMobileMenuOpen(true)}
+              style={{ background: 'none', border: 'none', color: 'var(--text-main)', cursor: 'pointer' }}
+            >
+              <Menu size={24} />
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* MENÚ MÓVIL (Full Screen Drawer) */}
+      {/* MENÚ MÓVIL CORREGIDO */}
+<AnimatePresence>
+  {isMobileMenuOpen && (
+    <motion.div
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: '#0f172a', // Azul opaco sólido para que no se trasluzca el fondo
+        zIndex: 9999, // Máxima prioridad
+        padding: '30px 25px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Cabecera del Menú */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        marginBottom: '40px',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        paddingBottom: '20px'
+      }}>
+        <div style={{ fontWeight: '900', color: '#eab308', fontSize: '1.2rem', letterSpacing: '-1px' }}>
+          HÍPICA PRO
+        </div>
+        <button 
+          onClick={() => setIsMobileMenuOpen(false)}
+          style={{ background: 'rgba(255,255,255,0.05)', border: 'none', borderRadius: '12px', padding: '10px', color: '#fff', cursor: 'pointer' }}
+        >
+          <X size={24} />
+        </button>
       </div>
-    </motion.nav>
+
+      {/* Cuerpo del Menú (Scrollable) */}
+      <div style={{ overflowY: 'auto', flex: 1, paddingRight: '10px' }}>
+        {menuData.map((menu, i) => (
+          <div key={i} style={{ marginBottom: '35px' }}>
+            {/* Título de Categoría */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '12px', 
+              color: '#eab308', 
+              marginBottom: '20px', 
+              fontWeight: '900', 
+              fontSize: '0.8rem',
+              letterSpacing: '2px'
+            }}>
+              {menu.icon} {menu.title}
+            </div>
+
+            {/* Links de la Categoría */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', paddingLeft: '32px' }}>
+              {menu.subItems ? menu.subItems.map((sub, j) => (
+                <Link 
+                  key={j} 
+                  to={sub.label} 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  style={{ 
+                    color: '#f8fafc', 
+                    textDecoration: 'none', 
+                    fontSize: '1.1rem', 
+                    fontWeight: '500',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  {sub.label}
+                  <ChevronRight size={18} style={{ opacity: 0.2 }} />
+                </Link>
+              )) : (
+                <Link 
+                  to={menu.title} 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem', fontWeight: '500' }}
+                >
+                  Ver sección
+                </Link>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer del Menú Móvil */}
+      <div style={{ 
+        marginTop: '20px', 
+        paddingTop: '20px', 
+        borderTop: '1px solid rgba(255,255,255,0.05)',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '20px'
+      }}>
+        <Link to="/perfil" onClick={() => setIsMobileMenuOpen(false)} style={{ color: '#94a3b8', fontSize: '0.8rem', textDecoration: 'none' }}>MI PERFIL</Link>
+        <span style={{ color: 'rgba(255,255,255,0.1)' }}>|</span>
+        <div style={{ color: '#94a3b8', fontSize: '0.8rem' }}>SOPORTE 24/7</div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+
+      {/* ESTILOS CSS PARA RESPONSIVE */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 1024px) {
+          .nav-desktop-links, .nav-ticker { display: none !important; }
+        }
+        @media (min-width: 1025px) {
+          .nav-mobile-trigger { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .nav-balance { display: none !important; }
+        }
+      `}} />
+    </>
   )
 }
 
-export default TopBar
+export default TopBar;

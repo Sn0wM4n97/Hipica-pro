@@ -1,24 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Info, ArrowUpRight, Globe, X, ZoomIn } from 'lucide-react';
+import { MapPin, Info, Globe, X } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const TracksPage = () => {
 
-  const [selectedTrack, setSelectedTrack] = useState(null);
-
-  // Patrón de colores coherente
-  const colors = {
-    bgMain: '#0f172a',      // Azul marino opaco
-    bgCard: '#1e293b',      // Azul tarjeta
-    accent: '#eab308',      // Amarillo/Dorado
-    textMain: '#ffffff',
-    textMuted: '#94a3b8',
-    border: 'rgba(255, 255, 255, 0.08)'
-  };
-
-  const tracks = [
+const tracks = [
     { 
       name: "Gulfstream Park", 
       location: "Hallandale Beach, Florida", 
@@ -44,6 +31,21 @@ const TracksPage = () => {
       length: "1 1/2 Miles"
     },
   ];
+
+    // Patrón de colores coherente
+  const colors = {
+    bgMain: '#0f172a',      // Azul marino opaco
+    bgCard: '#1e293b',      // Azul tarjeta
+    accent: '#eab308',      // Amarillo/Dorado
+    textMain: '#ffffff',
+    textMuted: '#94a3b8',
+    border: 'rgba(255, 255, 255, 0.08)'
+  };
+
+
+const TracksPage = () => {
+
+  const [selectedTrack, setSelectedTrack] = useState(null);
 
   return (
     <main style={{ backgroundColor: colors.bgMain, minHeight: '100vh', padding: '120px 5% 60px' }}>

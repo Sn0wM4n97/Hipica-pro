@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  HeartPulse, Activity, Stethoscope, Microscope, Search, 
+  Activity, Search, 
   ShieldCheck, CheckCircle2, Zap, Thermometer, Weight, AlertCircle 
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-
-const HealthPage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
 
   const colors = {
     bgMain: '#0f172a',
@@ -19,6 +15,13 @@ const HealthPage = () => {
     textMuted: '#94a3b8',
     border: 'rgba(255, 255, 255, 0.08)'
   };
+  
+
+const HealthPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+
+
 
   const handleSearch = () => {
     if (!searchTerm) return;
@@ -211,60 +214,60 @@ const HealthPage = () => {
         </div>
 
         {/* SECCIÓN FINAL: NUTRICIÓN ÉLITE (DISEÑO HORIZONTAL) */}
-<section style={{ marginTop: '30px' }}>
-  <div style={{ 
-    background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 1) 100%)',
-    borderRadius: '32px',
-    padding: '40px',
-    border: `1px solid ${colors.border}`,
-    position: 'relative',
-    overflow: 'hidden'
-  }}>
-    {/* Decoración de fondo sutil */}
-    <div style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.03, color: colors.success }}>
-      <Zap size={200} />
-    </div>
-
-    <div style={{ position: 'relative', zIndex: 1 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '30px' }}>
-        <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '15px' }}>
-          <Zap color={colors.success} size={24} />
-        </div>
-        <div>
-          <h2 style={{ color: '#fff', fontSize: '1.8rem', fontWeight: '900', margin: 0 }}>Nutrición de <span style={{ color: colors.success }}>Élite</span></h2>
-          <p style={{ color: colors.textMuted, margin: 0, fontSize: '0.9rem' }}>El balance nutricional detrás del alto rendimiento.</p>
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-        {[
-          { label: "FORRAJE PREMIUM", val: "Heno de Alfalfa", pct: "60%", desc: "Fibra de alta digestibilidad." },
-          { label: "ENERGÍA", val: "Avena & Granos", pct: "30%", desc: "Carbohidratos para explosividad." },
-          { label: "SUPLEMENTOS", val: "Electrolitos", pct: "10%", desc: "Recuperación y vitalidad." }
-        ].map((item, i) => (
-          <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '20px', border: `1px solid ${colors.border}` }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span style={{ fontSize: '0.6rem', fontWeight: '900', color: colors.success }}>{item.label}</span>
-              <span style={{ fontSize: '1rem', fontWeight: '900', color: '#fff' }}>{item.pct}</span>
+        <section style={{ marginTop: '30px' }}>
+          <div style={{ 
+            background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 1) 100%)',
+            borderRadius: '32px',
+            padding: '40px',
+            border: `1px solid ${colors.border}`,
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {/* Decoración de fondo sutil */}
+            <div style={{ position: 'absolute', right: '-20px', bottom: '-20px', opacity: 0.03, color: colors.success }}>
+              <Zap size={200} />
             </div>
-            <h4 style={{ color: '#fff', margin: '0 0 5px 0', fontSize: '1rem' }}>{item.val}</h4>
-            <p style={{ color: colors.textMuted, fontSize: '0.75rem', margin: 0, lineHeight: '1.4' }}>{item.desc}</p>
-            
-            {/* Barra de progreso */}
-            <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', marginTop: '15px' }}>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: item.pct }}
-                transition={{ duration: 1 }}
-                style={{ height: '100%', background: colors.success, borderRadius: '2px' }} 
-              />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '30px' }}>
+                <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '15px' }}>
+                  <Zap color={colors.success} size={24} />
+                </div>
+                <div>
+                  <h2 style={{ color: '#fff', fontSize: '1.8rem', fontWeight: '900', margin: 0 }}>Nutrición de <span style={{ color: colors.success }}>Élite</span></h2>
+                  <p style={{ color: colors.textMuted, margin: 0, fontSize: '0.9rem' }}>El balance nutricional detrás del alto rendimiento.</p>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+                {[
+                  { label: "FORRAJE PREMIUM", val: "Heno de Alfalfa", pct: "60%", desc: "Fibra de alta digestibilidad." },
+                  { label: "ENERGÍA", val: "Avena & Granos", pct: "30%", desc: "Carbohidratos para explosividad." },
+                  { label: "SUPLEMENTOS", val: "Electrolitos", pct: "10%", desc: "Recuperación y vitalidad." }
+                ].map((item, i) => (
+                  <div key={i} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '20px', border: `1px solid ${colors.border}` }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                      <span style={{ fontSize: '0.6rem', fontWeight: '900', color: colors.success }}>{item.label}</span>
+                      <span style={{ fontSize: '1rem', fontWeight: '900', color: '#fff' }}>{item.pct}</span>
+                    </div>
+                    <h4 style={{ color: '#fff', margin: '0 0 5px 0', fontSize: '1rem' }}>{item.val}</h4>
+                    <p style={{ color: colors.textMuted, fontSize: '0.75rem', margin: 0, lineHeight: '1.4' }}>{item.desc}</p>
+                    
+                    {/* Barra de progreso */}
+                    <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', marginTop: '15px' }}>
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: item.pct }}
+                        transition={{ duration: 1 }}
+                        style={{ height: '100%', background: colors.success, borderRadius: '2px' }} 
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+        </section>
 
       </div>
       <Footer />

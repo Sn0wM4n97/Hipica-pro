@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Award, Target, Layers, HelpCircle, ShieldCheck, X, Send, Mail, MessageSquare } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const RulesPage = () => {
 
-  const [isSupportOpen, setIsSupportOpen] = useState(false);
-
-  const colors = {
+const colors = {
     bgMain: '#0f172a',
     bgCard: '#1e293b',
     accent: '#eab308',
@@ -40,6 +37,11 @@ const RulesPage = () => {
       img: "https://plus.unsplash.com/premium_photo-1668902223985-70daff1e31b1?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ];
+
+
+const RulesPage = () => {
+
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
 
   return (
     <main style={{ backgroundColor: colors.bgMain, minHeight: '100vh', padding: '120px 5% 60px' }}>

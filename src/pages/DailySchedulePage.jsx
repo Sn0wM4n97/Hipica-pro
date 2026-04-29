@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
+import { motion} from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Clock, Lock, ChevronRight, Sun, CloudRain, Star } from 'lucide-react';
+import {  Lock, ChevronRight, Sun, CloudRain, Star } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const DailySchedulePage = () => {
-  // Definimos los colores exactos para asegurar el patrón
+ // Definimos los colores exactos para asegurar el patrón
   const colors = {
     bgMain: '#0f172a',      // Azul marino opaco (Fondo)
     bgCard: '#1e293b',      // Azul un poco más claro (Tarjetas)
@@ -48,6 +47,10 @@ const DailySchedulePage = () => {
       highlight: "Resultados Finalizados"
     },
   ];
+
+
+const DailySchedulePage = () => {
+ 
 
   return (
     <main style={{ backgroundColor: colors.bgMain, minHeight: '100vh', padding: '120px 5% 60px' }}>

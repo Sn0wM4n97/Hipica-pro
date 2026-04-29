@@ -1,5 +1,5 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import BentoGrid from '../components/BentoGrid' // Importamos el Bento que creamos
 import ExpertSlider from '../components/ExpertSlider' // Importamos el slider de expertos
@@ -9,50 +9,6 @@ import HealthDynamicSection from '../components/HealthSection' // Importamos la 
 import EliteLeaderboard from '../components/Leaderboard'
 import videoCaballos from '../assets/videoCaballos.mp4'
 import Footer from '../components/Footer' // Importamos el footer
-
-
-
-const splashUrl = 'https://images.unsplash.com/photo-1507514604110-ba3347c457f6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-
-const textContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.04,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-const textLetter = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-}
-
-const AnimatedText = ({ tag = 'span', className = '', text }) => {
-  const Tag = motion[tag]
-  return (
-    <Tag className={className} variants={textContainer} initial="hidden" animate="visible">
-      {text.split(' ').map((word, wordIndex) => (
-        <span key={`${word}-${wordIndex}`} className="animated-word">
-          {Array.from(word).map((letter, index) => (
-            <motion.span key={`${letter}-${index}`} className="animated-letter" variants={textLetter}>
-              {letter}
-            </motion.span>
-          ))}
-          {wordIndex < text.split(' ').length - 1 && <span className="animated-word-space">&nbsp;</span>}
-        </span>
-      ))}
-    </Tag>
-  )
-}
-
 
 
 const ExpertCard = ({ name, pick, accuracy, img, isBest }) => (
@@ -103,7 +59,6 @@ const ExpertCard = ({ name, pick, accuracy, img, isBest }) => (
 
 
 const LandingPage = () => {
-  const [parent] = useAutoAnimate()
 
   return (
     <main className="landing-page" style={{ backgroundColor: 'var(--bg)' }}>
@@ -154,10 +109,19 @@ const LandingPage = () => {
         La emoción de <br/> ganar se vive <br/> <span style={{ color: '#eab308' }}>segundo a segundo</span>
       </h1>
       <div style={{ display: 'flex', gap: '15px', marginTop: '2.5rem' }}>
-        <button className="button-primary" style={{ padding: '15px 35px', borderRadius: '50px' }}>
+      <Link to="/carrera/1" style={{ textDecoration: 'none' }}>
+        <button 
+          className="button-primary" 
+          style={{ 
+            padding: '15px 35px', 
+            borderRadius: '50px',
+            cursor: 'pointer' // Para que el usuario sepa que es clickeable
+          }}
+        >
           Comenzar a Ganar
         </button>
-      </div>
+      </Link>
+    </div>
     </motion.div>
 
     {/* COLUMNA DERECHA: WIDGET DE APUESTA RÁPIDA (Acción) */}
@@ -217,13 +181,12 @@ const LandingPage = () => {
 
 
 
-      {/* SECCIÓN BENTO GRID (Datos en Vivo) */}
-      <section id="live" style={{ marginTop: '-80px', position: 'relative', zIndex: 10 }}>
-        <BentoGrid />
-      </section>
+  {/* SECCIÓN BENTO GRID (Datos en Vivo) */}
+  <section id="live" style={{ marginTop: '-80px', position: 'relative', zIndex: 10 }}>
+    <BentoGrid />
+  </section>
 
       {/* 3. NUEVA SECCIÓN: EXPERT PICKS (Agrégala aquí) */}
-      {/* Dentro de la sección #experts en LandingPage.jsx */}
 <section id="experts" style={{ padding: '80px 5%', overflow: 'hidden' }}>
   <div style={{ textAlign: 'center', marginBottom: '40px' }}>
     <h2 style={{ fontSize: '2.5rem', color: 'var(--text-main)' }}>Pronósticos de Expertos</h2>
@@ -240,6 +203,12 @@ const LandingPage = () => {
     </div>
     <div style={{ minWidth: '350px' }}>
       <ExpertCard name="Dra. Turf" pick="Reina de Copas (#7)" accuracy="91%" img="https://i.pravatar.cc/300?img=21" isBest={true} />
+    </div>
+    <div style={{ minWidth: '350px' }}>
+      <ExpertCard name="Luis Paddock" pick="Furia Real (#1)" accuracy="82%" img="https://i.pravatar.cc/300?img=22" />
+    </div>
+    <div style={{ minWidth: '350px' }}>
+      <ExpertCard name="Jose" pick="Furia Real (#1)" accuracy="82%" img="https://i.pravatar.cc/300?img=22" />
     </div>
     <div style={{ minWidth: '350px' }}>
       <ExpertCard name="Luis Paddock" pick="Furia Real (#1)" accuracy="82%" img="https://i.pravatar.cc/300?img=22" />

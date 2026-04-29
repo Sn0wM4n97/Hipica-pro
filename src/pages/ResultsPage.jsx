@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
+import  {useState} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Hash, MapPin, ChevronRight, Search, PlayCircle } from 'lucide-react';
+import { Trophy, Search, PlayCircle } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 import caballosEnVivo from '../assets/caballosEnVivo.mp4' // Video de caballos en vivo (puedes usar cualquier video relacionado)
 
-const ResultsPage = () => {
 
-    const [selectedVideo, setSelectedVideo] = useState(null); // Almacena la URL del video activo
+
   // Colores del patrón de tu marca
-  const colors = {
+const colors = {
     bgMain: '#0f172a',      // Azul marino opaco
     bgCard: '#1e293b',      // Azul tarjeta
     accent: '#eab308',      // Amarillo/Dorado
@@ -46,6 +45,11 @@ const results = [
     isLongshot: true 
   },
 ];
+
+const ResultsPage = () => {
+
+    const [selectedVideo, setSelectedVideo] = useState(null); // Almacena la URL del video activo
+
 
     return (
     <main style={{ backgroundColor: colors.bgMain, minHeight: '100vh', padding: '120px 5% 60px' }}>

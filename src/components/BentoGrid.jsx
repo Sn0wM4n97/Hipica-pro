@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Play, Clock, Trophy, Star } from 'lucide-react';
 
 const BentoGrid = () => {
@@ -22,10 +23,12 @@ const BentoGrid = () => {
             <span style={{ fontWeight: 'bold', fontSize: '0.8rem' }}>EVENTO ESTELAR</span>
           </div>
           <h2 style={{ fontSize: '2rem', margin: 0 }}>GULFSTREAM PARK</h2>
-          <p style={{ opacity: 0.8 }}>Gran Premio de Campeones • R10</p>
-          <button style={{ marginTop: '15px', padding: '10px 20px', borderRadius: '50px', border: 'none', backgroundColor: '#eab308', fontWeight: 'bold', cursor: 'pointer' }}>
-            APUESTA EN VIVO
-          </button>
+          <p style={{ opacity: 0.8 }}>Gran Premio de Campeones • R8</p>
+          <Link to="/carrera/8" style={{ textDecoration: 'none' }}>
+            <button style={{ marginTop: '15px', padding: '10px 20px', borderRadius: '50px', border: 'none', backgroundColor: '#eab308', fontWeight: 'bold', cursor: 'pointer' }}>
+              APUESTA EN VIVO
+            </button>
+          </Link>
         </div>
       </motion.div>
 
@@ -51,12 +54,19 @@ const BentoGrid = () => {
       </div>
 
       {/* 4. STREAMING (PEQUEÑA) */}
+      
       <div className="bento-card bento-item-small" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }}>
-        <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#ef4444', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
-          <Play fill="#fff" size={20} />
-        </div>
-        <p style={{ marginTop: '10px', fontSize: '0.8rem', fontWeight: 'bold' }}>VER EN VIVO</p>
+        
+          <div style={{ width: '50px', height: '50px', borderRadius: '50%', backgroundColor: '#ef4444', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
+            <Link to="/carrera/4" style={{ textDecoration: 'none' }}>
+            <Play fill="#fff" size={20} />
+            </Link>
+          </div>
+          
+          <p style={{ marginTop: '10px', fontSize: '0.8rem', fontWeight: 'bold' }}>VER EN VIVO</p>
+        
       </div>
+      
 
     </section>
   );

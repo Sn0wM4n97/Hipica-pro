@@ -26,9 +26,30 @@ const NewsCarousel = () => {
 
   return (
     <section style={{ padding: '80px 5%', backgroundColor: 'var(--bg)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', height: '450px', overflow: 'hidden' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
+
         
-        <h2 style={{ marginBottom: '30px', color: 'var(--text-main)' }}>Notas del Establo</h2>
+        {/* NUEVO HEADER ESTILO "RANKING DE JOCKEYS" */}
+    <header style={{ textAlign: 'center', marginBottom: '60px' }}>
+      <h2 style={{ 
+        fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+        fontWeight: '900', 
+        color: '#fff', 
+        margin: 0,
+        lineHeight: '1.1'
+      }}>
+        Notas del <span style={{ color: '#eab308' }}>Establo</span>
+      </h2>
+      <p style={{ 
+        fontSize: '1rem', 
+        color: '#fff', 
+        opacity: 0.5, 
+        marginTop: '10px',
+        fontWeight: '400' 
+      }}>
+        Información exclusiva directamente desde los recintos de entrenamiento.
+      </p>
+    </header>
 
         <AnimatePresence mode="wait">
           <motion.div

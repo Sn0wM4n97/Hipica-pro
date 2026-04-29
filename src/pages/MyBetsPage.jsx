@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, CheckCircle2, AlertCircle, ReceiptText, Wallet } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const MyBetsPage = () => {
+
   const colors = {
     bgMain: '#0f172a',      // Azul marino opaco (Igual al footer)
     bgCard: '#1e293b',      // Azul tarjeta
@@ -15,13 +15,16 @@ const MyBetsPage = () => {
     border: 'rgba(255, 255, 255, 0.08)'
   };
 
-  const [activeFilter, setActiveFilter] = useState('ALL');
 
   const myBets = [
     { id: "TX-992", horse: "Thunder Bolt", race: "GSP - R8", amount: 50, payout: 125, status: "GANADA", color: colors.success },
     { id: "TX-995", horse: "Sea Star", race: "SA - R2", amount: 20, payout: 0, status: "PENDIENTE", color: colors.accent },
     { id: "TX-980", horse: "Golden Sun", race: "ASC - R1", amount: 15, payout: 0, status: "PERDIDA", color: "#ef4444" },
   ];
+
+const MyBetsPage = () => {
+
+  const [activeFilter, setActiveFilter] = useState('ALL');
 
   const filteredBets = myBets.filter(bet => 
     activeFilter === 'ALL' ? true : bet.status === activeFilter
