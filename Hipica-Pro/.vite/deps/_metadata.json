@@ -1,0 +1,44 @@
+{
+  "hash": "3d3b14cf",
+  "configHash": "2b919365",
+  "lockfileHash": "bbfeccc8",
+  "browserHash": "b374375f",
+  "optimized": {
+    "@formkit/auto-animate/react": {
+      "src": "../../node_modules/@formkit/auto-animate/react/index.mjs",
+      "file": "@formkit_auto-animate_react.js",
+      "fileHash": "283b0020",
+      "needsInterop": false
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "3ba21bb5",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "274df450",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "302f01da",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "62f44a90",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "react-BDWiK9rz": {
+      "file": "react-BDWiK9rz.js",
+      "isDynamicEntry": false
+    }
+  }
+}
